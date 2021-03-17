@@ -10,29 +10,29 @@ const PORT = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// HTML ROUTES
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+// Create path to db.json
+const dbPath = path.join(__dirname, 'db/db.json');
 
-app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, 'notes.html')));
+// HTML ROUTES
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
+
+app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, 'public/notes.html')));
 
 // API ROUTES
 app.get('/api/notes', (req, res) => {
-
-    const dbPath = path.join(__dirname, 'db.json');
-    const data = fs.readFileSync( dbPath, _______)
-
+    const data = JSON.parse(fs.readFileSync(dbPath));
     res.json(data);
 });
 
 app.post('/api/notes', (req, res) => {
-const newNote = req.body;
-console.log(newNote);
+    const newNote = req.body;
+    console.log(newNote);
 
-________.push(newNote);
-res.json(newNote);
+    dbPath.json.push(newNote);
+    res.json(newNote);
 });
 
 // LISTENER
 app.listen(PORT, () => {
-  console.log(`App listening on PORT: ${PORT}`);
+    console.log(`App listening on PORT: ${PORT}`);
 });
