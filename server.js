@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 8080;
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static('public'));
 
 // Create path to db.json
 const dbPath = path.join(__dirname, 'db/db.json');
@@ -21,14 +22,18 @@ app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, 'public/notes.
 // API ROUTES
 app.get('/api/notes', (req, res) => {
     const data = JSON.parse(fs.readFileSync(dbPath));
-    res.json(data);
+    return res.json(data);
 });
 
 app.post('/api/notes', (req, res) => {
     const newNote = req.body;
     console.log(newNote);
 
-    dbPath.json.push(newNote);
+    let data = JSON.parse(fs.readFileSync(dbPath));
+    data.push(newNote);
+    console.log(data);
+
+    fs.writeFileSync(dbPath, JSON.stringify(data));
     res.json(newNote);
 });
 
