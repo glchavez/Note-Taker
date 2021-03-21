@@ -28,14 +28,11 @@ app.get('/api/notes', (req, res) => {
 
 app.post('/api/notes', (req, res) => {
 
-    let oldData = fs.readFileSync(dbPath);
-    const oldArray = JSON.parse(oldData);
-
+    let oldArray = JSON.parse(fs.readFileSync(dbPath));
     req.body.id = uuidv4();
     oldArray.push(req.body);
 
     const newArray = JSON.stringify(oldArray);
-
     fs.writeFileSync(dbPath, newArray);
     res.json(newArray);
 });
@@ -44,14 +41,13 @@ app.delete('/api/notes/:id', (req, res) => {
     const id = req.params.id;
     console.log(id);
 
-    var oldData = fs.readFileSync(dbPath);
-    const oldNoteArray = JSON.parse(oldData);
+    let oldNoteArray = JSON.parse(fs.readFileSync(dbPath));
 
     const newNoteArray = oldNoteArray.filter(note => note.id !== id);
 
-    const newNoteString = JSON.stringify(newNoteArray);
-    var newData = fs.writeFileSync(dbPath, newNoteString);
-        res.json(newData);
+    const newNoteData = JSON.stringify(newNoteArray);
+    var updateDB = fs.writeFileSync(dbPath, newNoteData);
+    res.json(updateDB);
 });
 
 // LISTENER
