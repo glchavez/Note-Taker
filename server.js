@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 
@@ -26,15 +27,31 @@ app.get('/api/notes', (req, res) => {
 });
 
 app.post('/api/notes', (req, res) => {
-    const newNote = req.body;
-    console.log(newNote);
 
-    let data = JSON.parse(fs.readFileSync(dbPath));
-    data.push(newNote);
-    console.log(data);
+    let oldData = fs.readFileSync(dbPath);
+    const oldArray = JSON.parse(oldData);
 
-    fs.writeFileSync(dbPath, JSON.stringify(data));
-    res.json(newNote);
+    req.body.id = uuidv4();
+    oldArray.push(req.body);
+
+    const newArray = JSON.stringify(oldArray);
+
+    fs.writeFileSync(dbPath, newArray);
+    res.json(newArray);
+});
+
+app.delete('/api/notes/:id', (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+
+    var oldData = fs.readFileSync(dbPath);
+    const oldNoteArray = JSON.parse(oldData);
+
+    const newNoteArray = oldNoteArray.filter(note => note.id !== id);
+
+    const newNoteString = JSON.stringify(newNoteArray);
+    var newData = fs.writeFileSync(dbPath, newNoteString);
+        res.json(newData);
 });
 
 // LISTENER
