@@ -9,7 +9,7 @@ A challenge I faced when creating this repository was assigning a unique id to e
 
 ## Usage
 
-To use this application, please visit the deployed web page at [Note Taker](____________). Once on the web page, you will be presented with a home page. Click the "Get Started" button.
+To use this application, please visit the deployed web page at [Note Taker](https://limitless-bastion-08253.herokuapp.com/). Once on the web page, you will be presented with a home page. Click the "Get Started" button.
 
 This will take you to the notes page that has an empty text area to create your first note. Once you have entered a note title and text in the text area's, you can click on the save icon in the top right to save the note. This saved note will appear in the left column. You can view the note by clicking on the note title. If you would like to delete the note, simply click on the delete icon next to the note title.
 
