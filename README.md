@@ -1,8 +1,10 @@
 # Note-Taker
 
-## Description
+This repository takes in user input and creates a list of notes for the user.
 
-This repository takes in user input and creates a list of notes. It is intended to help individuals keep track of their thoughts by allowing them to take notes and reference them at a later time on the web page. They will also be able to delete the notes once they are no longer needed.
+## Overview
+
+This application is intended to help individuals keep track of their thoughts by allowing them to take notes and reference them at a later time on the web page. They will also be able to delete the notes once they are no longer needed.
 
 A challenge I faced when creating this repository was assigning a unique id to each new note by using the uuid npm. Implementing this id assignment in the POST function of the server.js file worked, which I then used to delete specific notes from the database using id's. For future improvements, I would like to create the option to allow the user to update their old notes rather than just read them.
 
